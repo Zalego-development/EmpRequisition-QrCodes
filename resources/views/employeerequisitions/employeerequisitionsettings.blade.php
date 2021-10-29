@@ -88,13 +88,19 @@
 
 
          <div class="row">
-            <div class="col">        <!-- Button trigger modal -->
+              <div class="col"></div> 
+            <div class="col"></div> 
+    <div class="col" >        <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalsetting">
- EmployeeRequisition Settings
-</button>&nbsp;&nbsp;<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
- Add EmployeeRequisition Settings Users
-</button></div>
-    <div class="col"></div>  
+    <i class="fas fa-plus" ></i>
+ Add Approval Level
+</button>&nbsp;&nbsp;
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+     <i class="fas fa-plus" ></i>
+ Assign Approval level
+</button>
+</div>
+   
         </div>
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -151,8 +157,8 @@
         <div class="form-group">
       <label for="disabledTextInput">Company</label>
 
-        <select class="form-control" name="company" id="company" class="form-control input-lg dynamic" data-dependent="userId">
-            <option>please Select Company</option>
+        <select class="form-control" name="company" id="company" required="" class="form-control input-lg dynamic" data-dependent="userId">
+            <option value="">please Select Company</option>
             @php 
             $company=DB::table('companies')
                     ->get();
@@ -164,8 +170,8 @@
     </div>
      <div class="form-group">
       <label for="disabledTextInput">Approver Job Title</label>
-        <select class="form-control" name="employeetype">
-            <option>please Select Job title</option>
+        <select class="form-control" name="employeetype" required="">
+            <option value="">please Select Job title</option>
            @foreach ($employeeRequisitionsettings as $setting)
         <option value="{{ $setting->employeetype }}"> {{ $setting->employeetype }} </option>            
             @endforeach    
@@ -174,12 +180,12 @@
          <div class="form-group">
       <label for="disabledTextInput">Employees</label>
 
-      <input list="brow" value="" class="form-control">
-       <datalist id="brow">
-        <select name="userId" id="userId" class="form-control input-lg dynamic my-select">
+<!--       <input list="brow" value="" class="form-control">
+       <datalist id="brow"> -->
+        <select name="userId" id="userId" required="" class="form-control input-lg dynamic my-select">
              <option value="">Select users</option>  
       </select> 
-      </datalist> 
+<!--       </datalist>  -->
        {{ csrf_field() }}  
     </div>
       </fieldset>

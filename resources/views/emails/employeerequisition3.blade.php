@@ -45,11 +45,15 @@
                       <tr>
                         
                           <td style="width:260px;padding:0;vertical-align:top;color:#153643;">
-                          <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Budgeted salary:{{ $data['salary'] }} - .{{ $data['salaryto'] }}</p>
+                       <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Budgeted salary:{{ $data['salary'] }}</p>
                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">No of Positions::{{ $data['positions'] }}</p>
                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Location:{{ $data['location'] }}</p>
                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Position Type::{{ $data['employementtype'] }}</p>
-                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">No. of Interviews::{{ $data['interviews'] }}</p>
+                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Levels. of Interviews:: @foreach( $data['interviews']  as $intent)
+                                      <ul><li>{{ $intent }}</li></ul>
+                                       
+                                      
+                                        @endforeach</p>
                            <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Job Category::{{ $data['jobcategory'] }}</p>
                         </td>
                         <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
@@ -165,22 +169,22 @@
                             $date=$gettheinitator->date;
                            $pushdata=(object) ['id'=> $idini,'name'=>$ininame, 'employeetype'=>$emplyeetype ,'action'=>"submit", 'date'=>$date]; 
                           array_unshift($approvers, $pushdata);
-                              $stages1 = $data['stages']
+  
                         @endphp
                         @foreach ($approvers as $approver) 
                          <tr>
-                          <td style=" font-size: 10px; " >{{ $count++ }}</td>  
+                          <td >{{ $count++ }}</td>  
                             <td>&nbsp;</td>
                           <td>&nbsp;</td>            
-                           <td style=" font-size: 10px; " >{{$approver->name}}</td>
+                           <td  >{{$approver->name}}</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
-                          <td style=" font-size: 10px; " >{{$approver->employeetype}}</td>
+                          <td  >{{$approver->employeetype}}</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
-                          <td style=" font-size: 10px;">
+                          <td >
                             @php
                             if($approver->employeetype == "HR Recruitment Team"){
                               if($approver->userId == $recruitemntapprover->userId){
@@ -219,7 +223,7 @@
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
-                          <td style=" font-size: 10px; margin-left:-50px;">
+                          <td style="  margin-left:-50px;">
                            @if(isset($approver->date) && $approver->date == $date)
                               <p>{{ $approver->date}}</p>
                               @endif
@@ -241,10 +245,11 @@
   </tbody>
           </table>
           <tr>
+            <!-- declinefroceoempinitator -->
             <td style="padding:30px;background:orange;">
            
-                      <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;"> <a href="{{ url('approvefromchief/' . $data['id'])}}"> Approve</a>&nbsp;&nbsp;| <a href="{{ url('declinefroceoempinitator/' . $data['id'])}}"> Decline</a> &nbsp;&nbsp;|<a href="{{ url('returnforcorrections/' . $data['id'].'/'.$data['user'])}}" id="{{$data['id']}}"> Return For Corrections</a><br></p>
-                          <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">  <a href="{{route ('calltoaction3')}}"> click here for an action</a><br><br></p>
+                      <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;"> <a href="{{ url('approvefromchief/' . $data['id'].'/'.$data['rec'])}}"> Approve</a>&nbsp;&nbsp;| <a href="{{ url('declinereasonfroceoempinitator/' . $data['id'])}}"> Decline</a> &nbsp;&nbsp;|<a href="{{ url('returnforcorrections/' . $data['id'].'/'.$data['user'])}}" id="{{$data['id']}}"> Return For Corrections</a><br></p>
+                      <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">  <a href="{{route ('calltoaction3')}}"> click here for an action</a><br><br></p>
                       
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
                 <tr>

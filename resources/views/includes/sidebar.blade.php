@@ -57,20 +57,20 @@
               <i class="nav-icon fas fa fa-cog"></i>
               <p>
               Employee Requisitions Settings
-                <i class="fas fa-angle-left right"></i>
+               <!--  <i class="fas fa-angle-left right"></i> -->
               </p>
             </a>
           </li>
-              <li class="nav-item has-treeview">
+<!--               <li class="nav-item has-treeview">
             <a href="{{url('/employeerequisitions')}}" class="nav-link nav-link2">
               <i class="nav-icon fas fa fa-paper-plane"></i>
               <p>
-              Employee Requisitions 
-                <i class="fas fa-angle-left right"></i>
+              Employee Request 
+               
               </p>
             </a>
-          </li>
-
+          </li> -->
+<!-- 
            <li class="nav-item has-treeview">
             <a href="{{url('/approvedrequisitions')}}" class="nav-link nav-link2">
               <i class="nav-icon fas fa fa-check"></i>
@@ -88,8 +88,17 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+          </li> -->
+              <li class="nav-item has-treeview">
+            <a href="{{url('/employeerequest')}}" class="nav-link nav-link2">
+              <i class="fa fa-file" aria-hidden="true"></i>
+              <p>
+              Employee Requisitions 
+               <!--  <i class="fas fa-angle-left right"></i> -->
+              </p>
+            </a>
           </li>
-            <li class="nav-item has-treeview">
+<!--             <li class="nav-item has-treeview">
             <a href="{{url('/jobs')}}" class="nav-link nav-link2">
               <i class="nav-icon fas fa-eye"></i>
               <p>
@@ -97,7 +106,7 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-          </li>
+          </li> -->
             <!-- <li class="nav-item has-treeview">
             <a href="" class="nav-link nav-link2">
               <i class="nav-icon fas fa-cog"></i>

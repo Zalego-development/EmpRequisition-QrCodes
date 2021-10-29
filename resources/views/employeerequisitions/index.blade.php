@@ -95,11 +95,33 @@
     </div>
     <section class="content">
         <!-- /.list of requisitions-fluid -->
+<?php 
 
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+$user=Auth::user()->id;
+ //get the role if any
+$getrole=DB::table('employeerequisitionusers')
+                ->where('userId', $user)
+                ->first();
+
+$role=$getrole->employeetype ?? null;
+if($role == "Executive Lead" || $role =="Group CEO"){
+
+} 
+else{
+    ?>
+    <div ></div>
+            <!-- Button trigger modal -->
+            <div class="btn"  style="padding-left: 70%;">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <i class="fas fa-plus"></i>
   Request For Employee
 </button>
+            </div>
+
+<?php
+}
+?>
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -144,6 +166,8 @@
     </div> 
 
     <div>
+<input list="brow" id="JobTittle" class="form-control" name="jobtittle">
+<datalist id="brow">
   <select id="JobTittle" required class="form-control" name="jobtittle">
      <?php
        $job_postings=DB::table('job_postings')
@@ -158,13 +182,16 @@
     <option value="{{ $jobtype->name }}"> {{ $jobtype->name }} </option>            
             @endforeach         
         </select>
+        </datalist>  
 </div>
     </div>
 </div>
     <div class="col">
        <div class="form-group">
-      <label for="disabledTextInput">Job Posting Location</label>
-   <select class="form-control" name="location" required="">
+      <label for="disabledTextInput">Work Station</label>
+      <input list="region" name="location" class="form-control" required="">
+   <datalist id="region">
+ <!--   <select class="form-control" name="location" required=""> -->
      <?php
        $locations=DB::table('workregions')
                ->get();
@@ -172,7 +199,8 @@
          @foreach ($locations as $location)
          <option value="{{ $location->region }}"> {{ $location->region }} </option>            
             @endforeach 
-      </select>
+   <!--    </select> -->
+      </datalist>  
     </div>
     </div>
 
@@ -188,7 +216,10 @@
     <div class="col">
           <div class="form-group">
       <label >Employement Type</label>
-    <select class="form-control" name="employementtype" required="">
+<input list="employementtype" class="form-control" name="employementtype" required="">
+<datalist id="employementtype">
+<!--     <select class="form-control" name="employementtype" required=""> -->
+        <option value=""> select Employement Type</option>
      <?php
        $jobstypes=DB::table('job_types')
                ->get();
@@ -196,7 +227,8 @@
          @foreach ($jobstypes as $jobtype)
     <option value="{{ $jobtype->name }}"> {{ $jobtype->name }} </option>            
             @endforeach 
-      </select>
+      <!-- </select> -->
+      </datalist>  
     </div>  
     </div>  
     <div class="col">   
@@ -208,7 +240,7 @@
   </div>
   <div class="row">
       <div class="col">
-          <label>Report to</label>
+          <label>Reports to</label>
     <select class="form-control" name="manager" required="">
      <?php
         $managers=DB::table('users')
@@ -221,24 +253,25 @@
       </div>
       <div class="col">
     <div class="form-group">
-    <label for="disabledTextInput">Budgeted Salary range from</label>
-      <input type="number" id="salaryfrom" class="form-control" id="exampleFormControlTextarea1" name="salary" required="">
+    <label for="disabledTextInput">Budgeted Salary</label>
+      <input type="number" id="salaryfrom" class="form-control" min="1" id="exampleFormControlTextarea1" name="salary" required="">
     </div>
       </div>
     <div class="col">
     <div class="form-group">
-    <label for="disabledTextInput">Salary Range to</label>
-      <input type="number" id="salaryto" class="form-control " id="exampleFormControlTextarea2" name="salaryto" required="">
+    <label for="disabledTextInput">No. of Positions</label>
+    <input type="number" class="form-control" id="exampleFormControlTextarea1" min="1" name="positions" required="">
+      <!-- <input type="number" id="salaryto" class="form-control " min="1" id="exampleFormControlTextarea2" name="salaryto" required=""> -->
     </div>
       </div>
   </div>
   <div class="row">
- <div class="col">
+<!--  <div class="col">
       <div class="form-group">
       <label for="disabledTextInput">No. of Positions</label>
-      <input type="number" class="form-control" id="exampleFormControlTextarea1" name="positions" required="">
+      <input type="number" class="form-control" id="exampleFormControlTextarea1" min="1" name="positions" required="">
     </div> 
-</div>
+</div> -->
       <div class="col">
     <div class="form-group">
     <label for="disabledTextInput">Will PWD Apply?</label>
@@ -250,26 +283,25 @@
       </div>
      <div class="col">
     <div class="form-group">
-    <label for="disabledTextInput">Interviews Levels</label>
-      <select class="form-control" name="interviews" required="">
-          <option value="Online Assessement">Online Assessement</option>
-          <option value="Physical Assessment">Physical Assessment</option>
-          <option value="First Oral">First Oral</option>
-          <option value="Second Oral">Second Oral</option>
-      </select>
+    <label for="disabledTextInput">Interviews Levels</label><br>
+    <input type="checkbox" name="interviews[]"  value="First Oral" checked="true">First Oral
+     <input type="checkbox" name="interviews[]" value="Second Oral" checked="true" >Second Oral
+    <input type="checkbox" name="interviews[]" value="Online Assessement" checked="true">Online Assessement
+      <input type="checkbox" name="interviews[]"  value="Physical Assessment">Physical Assessment
+
     </div>  
       </div>
   </div>
       <div class="form-group">
       <label for="disabledTextInput">Job Description</label>
-      <textarea class="form-control textarea summernote"   name="jobdescription" rows="3"></textarea>
+      <textarea class="form-control textarea summernote"  required=""  name="jobdescription" rows="3"></textarea>
       @error('jobdescription')
     <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
     <div class="form-group">
       <label for="disabledTextInput">Responsibilities</label>
-      <textarea class="form-control textarea summernote" id="exampleFormControlTextarea1"  name="responsibilities" rows="3"></textarea>
+      <textarea class="form-control textarea summernote" required="" id="exampleFormControlTextarea1"  name="responsibilities" rows="3"></textarea>
     </div>
     <div class="form-group">
     <label for="disabledTextInput">Requirements</label>
@@ -300,121 +332,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="mt-2">
-        <?php 
-
-
-// if the initiator is the HR Recruiter
- $getinitators=DB::table('employeerequisitions')
-              ->where('status', 'initiated')
-              ->where('stages', 0)
-              ->get();
-
-        $user=Auth::user()->id;
-        //get the role if any
-        $getrole=DB::table('employeerequisitionusers')
-                ->where('userId', $user)
-                ->first();
-
-                $role=$getrole->employeetype ?? null;
-$getnotification =DB::table('employeerequisitions')
-                 ->where('status', 'initiated')
-                  ->get();
-
-        if ($role=='HR Recruitment Team') {
-
-            foreach($getnotification as $notify){
-             if ($notify->stages == 0) {
-                ?>
-         <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoaction')}}">Employee Requisition Approvals</a></p>
-         <?php
-            }
-            
-            }
-
-             }
-        elseif($role =='Group CEO'){
-     $getnotificationceo =DB::table('employeerequisitions')
-                 ->where('status', 'initiated')
-                 ->where('stages', 1)
-                 ->where('stage1', 1)
-                 ->where('stage2', 1)
-                  ->get();
-            foreach($getnotificationceo as $notify){
-             if ($notify->stage3 == 0 && $notify->role =='HR Recruitment Team' && $notify->action =='2') { 
-                ?>
-                   <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoactionceorecruinitiator')}}">Employee Requisition From Recruitement Team</a></p>
-     
-         <?php
-            }
-            elseif($notify->stage3 == 0 && $notify->role =='' && $notify->action =='3'){
-                ?>
-                    <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoaction3')}}">Employee Requisition From Recruitement Team</a></p>
-                    <?php      
-            }
-            elseif ($notify->stage3 == 0 && $notify->role =="HR Manager" && $notify->action =='1') {
-                ?>
-                <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoactionceochrinitiator')}}">Employee Requisition From HR Manager</a></p>
-                 <?php
-            }
-             elseif ($notify->stage3 == 0 && $notify->role =="Executive Lead" && $notify->action =='0') {
-                ?>
-                <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoactionceoexecinitiator')}}">Employee Requisition From Executive Lead</a></p>
-                 <?php
-            }
-            
-            }    
-                        }
-             elseif ($role =="HR Manager") {
-                $getnotificationhr =DB::table('employeerequisitions')
-                 ->where('status', 'initiated')
-                 ->where('stages', 1)
-                  ->get();
-            foreach($getnotificationhr as $notify){
-             if ($notify->stage1 == 0 && $notify->role== 'HR Recruitment Team') {
-                ?>
-                  <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;">  <a href="{{route ('calltoactionhrrecrurinitiator')}}"> Employee Requisition from HR Recruitment Team</a><br><br></p>
-   
-         <?php
-            }
-            else if ($notify->role =="" && $notify->stage1 ==0) {
-                ?>
-                     <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoaction1')}}">Employee Requisition Approvals</a></p>
-                     <?php
-            }
-            
-            }
-                }
-             elseif ($role =="Executive Lead") {
-                $getnotificationexec =DB::table('employeerequisitions')
-                 ->where('status', 'initiated')
-                 ->where('stages', 1)
-                 ->where('stage1', 1)
-                  ->get();
-            foreach($getnotificationexec as $notify){
-             if ($notify->stage2 == 0 && $notify->role =="HR Recruitment Team") {
-                ?>
-                <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;">  <a href="{{route ('calltoactionexecrecrurinitiator')}}"> Employee Request From Recruitment Team</a><br><br></p>
-                
-         <?php
-            }
-            elseif($notify->stage2 == 0 && $notify->role ==""){
-                ?>
-                <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoaction2')}}">Employee Requisition From Hiring Manager</a></p>
-                <?php     
-            }
-            elseif ($notify->stage2 == 0 && $notify->role =="HR Manager") {
-                ?>
-                <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoactionexechrinitiator')}}">Employee Requisition From HR Manager</a></p>
-                 <?php
-            }
-            
-            }
-                        }
-                        else{
-                            
-                         }
-                         ?>
-                        
+       
                         
                         </div>
 
@@ -422,16 +340,7 @@ $getnotification =DB::table('employeerequisitions')
                 </div>
             </div>
             <hr>
-            <div class="col-md-12 mb-3">
-                <div class="row">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-2">
-                          <button class="btn-primary" onClick="window.location.reload();">Refresh Page</button>
-                    </div>
-                </div>
-              
-
+            <div class="col-md-12 mb-3">              
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#enrolled" role="tab"
@@ -452,16 +361,15 @@ $getnotification =DB::table('employeerequisitions')
                                             <tr class="bg-light">
                                                 <th>#</th>
                                                 <th>JobTittle</th>
-                                               
-                                                <th>No of Positions</th>
                                                  <th>Budgeted Salary</th>
                                                
                                                 <th>Job Type</th>
-                                                <th>Location</th>
-                                                <th>people Targeted</th>
-                                                <th>Request Type</th>
-                                                
+
+                                                <th>Target Group</th>
+                                            
+                                                <th>Approval Status</th>
                                                 <th>Action</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -474,12 +382,9 @@ $getnotification =DB::table('employeerequisitions')
                                                 <tr >
                                                 <td class='clickable-row' data-href='{{ route('employeerequisitions.show',$emprequest->id) }}'>{{ $count++ }}</td>
                                                 <td class='clickable-row' data-href='{{ route('employeerequisitions.show',$emprequest->id) }}'>{{ $emprequest->jobtittle }}</td>
-                                               
-                                                <td class='clickable-row' data-href='{{ route('employeerequisitions.show',$emprequest->id) }}'>{{ $emprequest->positions }}</td>
-                                                <td>{{ $emprequest->salary }}-{{$emprequest->salaryto}}</td>
+                                                <td>{{ $emprequest->salary }}</td>
                                                 
                                                 <td class='clickable-row' data-href='{{ route('employeerequisitions.show',$emprequest->id) }}'>{{ $emprequest->employementtype }}</td>
-                                                <td class='clickable-row' data-href='{{ route('employeerequisitions.show',$emprequest->id) }}'>{{ $emprequest->location}}</td>
                                                 <td class='clickable-row' data-href='{{ route('employeerequisitions.show',$emprequest->id) }}'>
                                                     @php
                                                     $intenting = unserialize($emprequest->intenting)
@@ -490,7 +395,7 @@ $getnotification =DB::table('employeerequisitions')
                                                     @endforeach
                                                     </ul>
                                                 </td>
-                                                <td class='clickable-row' data-href='{{ route('employeerequisitions.show',$emprequest->id) }}'>{{ $emprequest->jobcategory}}</td>
+                                            
                                                 @php 
                                                 $approvalsprogress=DB::table('requsitionsapprovals')
                                                 ->join('users', 'users.id', '=', 'requsitionsapprovals.userId')
@@ -500,7 +405,63 @@ $getnotification =DB::table('employeerequisitions')
                                                 ->orderBy('requsitionsapprovals.date', 'asc')
                                                  ->get(); 
                                                  @endphp
-                                               
+                                               <td>
+                                              <?php
+                                                   $getonepending=DB::table('employeerequisitions')
+                                                                 ->where('id',$emprequest->id )
+                                                                 ->first();
+                                                                 // dd($getonepending);
+                                                  if($getonepending->stages == 0 &&$getonepending->stage1 =='0' && $getonepending->stages == '0' && $getonepending->stage2 =='0' && $getonepending->stage3 =='0'){
+                                                    ?>
+                                                    <ul style="font-size: 12px;">
+                                                       <li>Pending -HR Recruitment Team</li>
+                                                     </ul>
+                                                     <?php
+                                                  }
+                                                    
+                                                  if($getonepending->stage1 =='0' && $getonepending->stages == '1'){
+
+                                                    $getwhoinitiate=DB::table('employeerequisitions')
+                                                                   ->where('id', $emprequest->id)
+                                                                   ->first();
+                                                      if ($getwhoinitiate->role=="HR Team") {
+                                                                       echo "Pending -Hiring Manager";
+                                                                   }   
+                                                                   else{          
+                                                    ?>
+                                                    <ul style="font-size: 12px;">
+                                                       <li>Pending -HR Manager</li>
+                                                     </ul>
+                                                     <?php
+                                                 }
+                                                  }
+                                                elseif($getonepending->stage1 =='1' && $getonepending->stages == '1' && $getonepending->stage2 =='0'){
+                                                 $getwhoinitiate=DB::table('employeerequisitions')
+                                                                   ->where('id', $emprequest->id)
+                                                                   ->first();
+                                                      if ($getwhoinitiate->role=="HR Team") {
+                                                                       echo "Pending -HR Manager";
+                                                                   }   
+                                                                   else{  
+                                                                                                        ?>
+                                                    <ul style="font-size: 12px;">
+                                                       <li>Pending -Executive Lead</li>
+                                                     </ul>
+                                                     <?php
+                                                 }
+                                                }
+                                                     
+                                                elseif($getonepending->stage1 =='1' && $getonepending->stages == '1' && $getonepending->stage2 =='1' && $getonepending->stage3 =='0'){
+                                                    ?>
+                                                    <ul style="font-size: 12px;">
+                                                       <li>Pending -Group CEO</li>
+                                                     </ul>
+                                                     <?php
+                                                }
+
+                                                ?>
+                                               </td>
+                                               </td>
                                                 <td>
                                                         <span class="dropdown">
                                                         <a title="Action tab" id="wp-icon" class="btn btn-secondary "
@@ -592,7 +553,7 @@ $getnotification =DB::table('employeerequisitions')
          $count = 1;
          @endphp
          @php 
-                                                $approvalsprogress=DB::table('requsitionsapprovals')
+                         $approvalsprogress=DB::table('requsitionsapprovals')
                                                 ->join('users', 'users.id', '=', 'requsitionsapprovals.userId')
                                                 ->join('employeerequisitionusers', 'employeerequisitionusers.userId', '=', 'users.id')
                                                 ->where('requsitionsapprovals.jobid', $emprequest->id)
@@ -604,7 +565,7 @@ $getnotification =DB::table('employeerequisitions')
                                         $gettheinitator=DB::table('requsitionsapprovals') 
                                         ->join('users' , 'users.id', '=', 'requsitionsapprovals.userId') 
                                         ->where('requsitionsapprovals.jobid', $emprequest->id)
-                                        ->where('requsitionsapprovals.initiator' ,'Initiator')
+                                        ->where('requsitionsapprovals.initiator' ,'initiator')
                                         ->first();
                                        
                             $ininame=$gettheinitator->name;
@@ -681,24 +642,23 @@ $getnotification =DB::table('employeerequisitions')
 </section>
 </div>
 <script type="text/javascript">
+    function buttonToggler(id){
+        $('#'+id).slideUp()
+    }
+</script>
+<script type="text/javascript">
 
     jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
         window.location = $(this).data("href");
     });
 });
-    $(document).ready(
-        //  target the minimum input
-        $('#salaryfrom').keyup(e=>{
-            $('#salaryto').attr('min', $('#salaryfrom').val())
-        })
-    )
-</script>
-<script type="text/javascript">
-
-    function buttonToggler(id){
-        $('#'+id).slideUp()
-    }
+    // $(document).ready(
+    //     //  target the minimum input
+    //     $('#salaryfrom').keyup(e=>{
+    //         $('#salaryto').attr('min', $('#salaryfrom').val())
+    //     })
+    // )
 </script>
 <script type="text/javascript">
 $(document).ready(function(){

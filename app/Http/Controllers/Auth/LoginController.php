@@ -155,11 +155,11 @@ class LoginController extends Controller
                   }
                  
                }
-               return redirect()->intended('/employeerequisitions');
+               return redirect()->intended('/employeerequest');
         }else{
            
         $insert1=DB::insert('INSERT INTO history_log(email_address,userid,action,ip,host,login_time,latitude,longitude) VALUES(?,?,?,?,?,?,?,?)',[$userID2,$userid,$action,$ip,$host,$loginTime,$lati,$longi]);
-        return redirect()->intended('/employeerequisitions');  
+        return redirect()->intended('/employeerequest');  
       }
       return back();
      }    

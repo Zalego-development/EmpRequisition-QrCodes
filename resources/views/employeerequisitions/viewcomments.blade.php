@@ -80,12 +80,18 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
+
                 <div class="col-sm-6">
                     <br>
+                            <div class="pull-left">
+            <a class="btn btn-primary" href="{{ route('tabspage') }}"> Back</a>
+        </div>
                     <ol class="breadcrumb float-sm-left ml-2">
+
                         <li class="breadcrumb-item active"><a href="#">Requisitions Comments</a></li>
                     </ol>
                 </div><!-- /.col -->
+
                 <div class="col-sm-6">
                     <div class="float-right mt-2">
                         <div class="btn-group btn-group-justified">
@@ -140,10 +146,10 @@
                                         <thead>
                                             <tr class="bg-light">
                                                 <th>#</th>
-                                                <th>JobId</th>
-                                                <th>UserId</th>
-                                                <th>comments</th>
-                                                <th>Status</th>
+                                                <th>Job Title</th>
+                                                <th>CommentBY</th>
+                                                <th>comments Made</th>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -153,10 +159,18 @@
                                             @forelse ($jobapproval as $jobapproval)
                                             <tr>
                                                 <td>{{ $count++ }}</td>
-                                                <td>{{ $jobapproval->jobid }}</td>
-                                                <td>{{ $jobapproval->userId}}</td>
+                                                @php
+                                                $jobtitle=DB::table('employeerequisitions')
+                                                        ->where('id', $jobapproval->jobid)
+                                                        ->first();
+                                                $commentby=DB::table('users')
+                                                          ->where('id', $jobapproval->userId)
+                                                          ->first();
+                                                @endphp
+                                                <td>{{ $jobtitle->jobtittle }}</td>
+                                                <td>{{ $commentby->name}}</td>
                                                 <td>{!! $jobapproval->comment !!}</td>
-                                                <td>{{ $jobapproval->action}}</td>
+                                               
                                             </tr>
                                             @empty
                                             <tr>

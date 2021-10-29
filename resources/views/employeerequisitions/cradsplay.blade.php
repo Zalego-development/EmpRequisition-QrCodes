@@ -1036,3 +1036,211 @@ $(document).ready(function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <?php 
+
+
+// if the initiator is the HR Recruiter
+ $getinitators=DB::table('employeerequisitions')
+              ->where('status', 'initiated')
+              ->where('stages', 0)
+              ->get();
+
+        $user=Auth::user()->id;
+        //get the role if any
+        $getrole=DB::table('employeerequisitionusers')
+                ->where('userId', $user)
+                ->first();
+
+                $role=$getrole->employeetype ?? null;
+$getnotification =DB::table('employeerequisitions')
+                 ->where('status', 'initiated')
+                  ->get();
+
+        if ($role=='HR Recruitment Team') {
+
+            foreach($getnotification as $notify){
+             if ($notify->stages == 0 && $notify->stage1==0 && $notify->stage2 ==0 && $notify->stage3 ==0 && $notify->action==0) {
+                ?>
+                <script>
+                if (window.confirm('click OK to Approve Employee Requisition From Hiring Manager . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoaction')}}';
+                 };
+                </script>
+     <!--     <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoaction')}}">Employee Requisition Approvals</a></p> -->
+         <?php
+            }
+            
+            }
+
+             }
+        elseif($role =='Group CEO'){
+     $getnotificationceo =DB::table('employeerequisitions')
+                 ->where('status', 'initiated')
+                 ->where('stages', 1)
+                 ->where('stage1', 1)
+                 ->where('stage2', 1)
+                  ->get();
+            foreach($getnotificationceo as $notify){
+             if ($notify->stage3 == 0 && $notify->role =='HR Recruitment Team') { 
+                ?>
+                 <script>
+                if (window.confirm('click OK to Approve Employee Requisition From Recruitement Team . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoactionceorecruinitiator')}}';
+                 };
+                </script>
+               <!--     <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoactionceorecruinitiator')}}">Employee Requisition From Recruitement Team</a></p> -->
+     
+         <?php
+            }
+            elseif($notify->stage3 == 0 && $notify->role =='' && $notify->action =='3'){
+                ?>
+                <script>
+                if (window.confirm('click OK to Approve Employee Requisition From Hiring Manager . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoaction3')}}';
+                 };
+                </script>
+ <!--                    <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoaction3')}}">Employee Requisition From Recruitement Team</a></p> -->
+                    <?php      
+            }
+            elseif ($notify->stage3 == 0 && $notify->role =="HR Manager" && $notify->action =='1') {
+                ?>
+                <script>
+                if (window.confirm('click OK to Approve Employee Requisition From HR Manager . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoactionceochrinitiator')}}';
+                 };
+                </script>
+<!--                 <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoactionceochrinitiator')}}">Employee Requisition From HR Manager</a></p> -->
+                 <?php
+            }
+             elseif ($notify->stage3 == 0 && $notify->role =="Executive Lead" && $notify->action =='0') {
+                ?>
+                <script>
+                if (window.confirm('click OK to Approve Employee Requisition From Executive Lead . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoactionceoexecinitiator')}}';
+                 };
+                </script>
+                <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoactionceoexecinitiator')}}">Employee Requisition From Executive Lead</a></p>
+                 <?php
+            }
+            
+            }    
+                        }
+             elseif ($role =="HR Manager") {
+                $getnotificationhr =DB::table('employeerequisitions')
+                 ->where('status', 'initiated')
+                 ->where('stages', 1)
+                  ->get();
+            foreach($getnotificationhr as $notify){
+             if ($notify->stage1 == 0 && $notify->role== 'HR Recruitment Team' && $notify->action==0) {
+                ?>
+                <script>
+                if (window.confirm('click OK to Approve Employee Requisition From Recruitment Team . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoactionhrrecrurinitiator')}}';
+                 };
+                </script>
+<!--                   <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;">  <a href="{{route ('calltoactionhrrecrurinitiator')}}"> Employee Requisition from HR Recruitment Team</a><br><br></p> -->
+   
+         <?php
+            }
+            else if ($notify->role =="" && $notify->stage1 ==0) {
+                ?>
+                <script>
+                if (window.confirm('click OK to Approve Employee Requisition From Recruitment Team . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoaction1')}}';
+                 };
+                </script>
+<!--                      <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{ route ('calltoaction1')}}">Employee Requisition Approvals</a></p> -->
+                     <?php
+            }
+            
+            }
+                }
+             elseif ($role =="Executive Lead") {
+                $getnotificationexec =DB::table('employeerequisitions')
+                 ->where('status', 'initiated')
+                 ->where('stages', 1)
+                 ->where('stage1', 1)
+                  ->get();
+            foreach($getnotificationexec as $notify){
+             if ($notify->stage2 == 0 && $notify->role =="HR Recruitment Team") {
+                ?>
+                <script>
+                if (window.confirm('click OK to Approve Employee Requisition From Recruitment Team . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoactionexecrecrurinitiator')}}';
+                 };
+                </script>
+<!--                 <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;">  <a href="{{route ('calltoactionexecrecrurinitiator')}}"> Employee Request From Recruitment Team</a><br><br></p> -->
+                
+         <?php
+            }
+            elseif($notify->stage2 == 0 && $notify->role ==""){
+                ?>
+                <script>
+                if (window.confirm('click OK to Approve Employee Requisition From Hiring Manager . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoaction2')}}';
+                 };
+                </script>
+            <!--     <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoaction2')}}">Employee Requisition From  Manager</a></p> -->
+                <?php     
+            }
+            elseif ($notify->stage2 == 0 && $notify->role =="HR Manager") {
+                ?>
+                <script>
+                if (window.confirm('click OK to Approve Employee Requisition From HR Manager . Cancel to ignore ')) 
+                 {
+                window.location.href='{{route ('calltoactionexechrinitiator')}}';
+                 };
+                </script>
+                
+                <!-- <p style="margin:0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;padding-left: 70%; color: red;"> <a href="{{route ('calltoactionexechrinitiator')}}"></a></p> -->
+                 <?php
+            }
+            
+            }
+                        }
+                        else{
+                            
+                         }
+                         ?>
+                        

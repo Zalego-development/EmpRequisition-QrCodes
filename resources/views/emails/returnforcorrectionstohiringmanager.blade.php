@@ -25,31 +25,44 @@
         <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
           <tr>
             <td align="center" style="padding:20px 0 15px 0;background:orange;">
-              <p style="margin:0 0 12px 0;font-size:12px;line-height:16px;font-family:Arial,sans-serif;">An Employee Requisition request for :: {{ $data['jobtittle'] }} has been return for corrections, please Rectify The corrections for further approvals By:: {{ $data['username'] }}</p>
+              <h2 style="color: #ffffff">Employee Requsitions Return for Corrections</h2>
+            </td>
+          </tr>
+
+             <tr>
+            <td >
+             <p style="font-size:14px;margin:0 0 18px 0;font-family:Arial,sans-serif; color: black; padding-left: 30px;">Please Rectify the below comments for further Approvals.</p>
+            </td>
+          </tr>
+            <tr>
+            <td style="font-size:14px;margin:0 0 0px 0;font-family:Arial,sans-serif; color: red; padding-left: 30px;" >
+             {!! $data['comment'] !!}
             </td>
           </tr>
           <tr>
             <td style="padding:36px 30px 42px 30px;">
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                 <tr>
-                  <td style="padding:0 0 36px 0;color:#153643;">
-                    <p style="font-size:16px;margin:0 0 18px 0;font-family:Arial,sans-serif; text-decoration-color: red;">Coments Made::{!! $data['comment'] !!}</p>
+                  <td>
+                    
                     <h6 style="font-size:12px;margin:0 0 10px 0;font-family:Arial,sans-serif;">Job Tittle::{{ $data['jobtittle'] }}</h6>
-                    <p style="margin:0 0 12px 0;font-size:12px;line-height:24px;font-family:Arial,sans-serif;">Job Description::{!! $data['jobdescription'] !!}</p>
-                    <p style="margin:0;font-size:12px;line-height:24px;font-family:Arial,sans-serif;">Key Responsbilities:{!! $data['responsibilities'] !!}</p>
+
                   </td>
                 </tr>
                 <tr>
                   <td style="padding:0;">
                     <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
-                      <tr>
-                        
+                        <tr>
                           <td style="width:260px;padding:0;vertical-align:top;color:#153643;">
-                          <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Budgeted salary:{{ $data['salary'] }} - .{{ $data['salaryto'] }}</p>
+                          <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Budgeted salary:{{ $data['salary'] }}</p>
                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">No of Positions::{{ $data['positions'] }}</p>
                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Location:{{ $data['location'] }}</p>
                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Position Type::{{ $data['employementtype'] }}</p>
-                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">No. of Interviews::{{ $data['interviews'] }}</p>
+                            <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Levels. of Interviews:: @foreach( $data['interviews']  as $intent)
+                                      <ul><li>{{ $intent }}</li></ul>
+                                       
+                                      
+                                        @endforeach</p>
                            <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Job Category::{{ $data['jobcategory'] }}</p>
                         </td>
                         <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
@@ -91,11 +104,6 @@
             <td style="padding:30px;background:orange;">
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
                 <tr>
-                  <td style="padding:0;width:50%;" align="left">
-                    <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                      &reg;2021<br/><a href="http://www.example.com" style="color:#ffffff;text-decoration:underline;">Zalego Academy</a>
-                    </p>
-                  </td>
                   <td style="padding:0;width:50%;" align="right">
                     <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
                       <tr>

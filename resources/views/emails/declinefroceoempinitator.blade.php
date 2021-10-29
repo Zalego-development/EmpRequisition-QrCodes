@@ -45,11 +45,15 @@
                       <tr>
                         
                           <td style="width:260px;padding:0;vertical-align:top;color:#153643;">
-                          <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Budgeted salary:{{ $data['salary'] }} - .{{ $data['salaryto'] }}</p>
+                         <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Budgeted salary:{{ $data['salary'] }}</p>
                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">No of Positions::{{ $data['positions'] }}</p>
                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Location:{{ $data['location'] }}</p>
                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Position Type::{{ $data['employementtype'] }}</p>
-                           <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">No. of Interviews::{{ $data['interviews'] }}</p>
+                            <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Levels. of Interviews:: @foreach( $data['interviews']  as $intent)
+                                      <ul><li>{{ $intent }}</li></ul>
+                                       
+                                      
+                                        @endforeach</p>
                            <p style="margin:0 0 12px 0;font-size:12px;line-height:14px;font-family:Arial,sans-serif;">Job Category::{{ $data['jobcategory'] }}</p>
                         </td>
                         <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
@@ -171,23 +175,21 @@
                             $date=$gettheinitator->date;
                            $pushdata=(object) ['id'=> $idini,'name'=>$ininame, 'employeetype'=>$emplyeetype ,'action'=>"submit", 'date'=>$date]; 
                           array_unshift($approvers, $pushdata);
-                          //dd($recruitemntapprover);
-                              $stages = $data['stages']
                         @endphp
                         @foreach ($approvers as $approver) 
                          <tr>
-                          <td style=" font-size: 10px; " >{{ $count++ }}</td>  
+                          <td style=" font-size: 12px; " >{{ $count++ }}</td>  
                             <td>&nbsp;</td>
                           <td>&nbsp;</td>            
-                           <td style=" font-size: 10px; " >{{$approver->name}}</td>
+                           <td style=" font-size: 12px; " >{{$approver->name}}</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
-                          <td style=" font-size: 10px; " >{{$approver->employeetype}}</td>
+                          <td style=" font-size: 12px; " >{{$approver->employeetype}}</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
-                          <td style=" font-size: 10px;">
+                          <td style=" font-size: 12px;">
                             @php
                             if($approver->employeetype == "HR Recruitment Team"){
                               if($approver->userId == $recruitemntapprover->userId){
@@ -234,7 +236,7 @@
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
-                          <td style=" font-size: 10px; margin-left:-50px;">
+                          <td style=" font-size: 12px; margin-left:-50px;">
                             @if(isset($approver->date) && $approver->date == $date)
                               <p>{{ $approver->date}}</p>
                               @endif

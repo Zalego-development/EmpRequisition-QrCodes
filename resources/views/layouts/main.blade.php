@@ -19,7 +19,14 @@
  <!-- all content  -->
   @yield('content')
   <!--====end yield==== -->
-
+<script type="text/javascript">
+      $(function () {
+        $('table').dataTable();
+        $('#example1').dataTable();
+        $('#example2').dataTable();
+        $('#example3').dataTable();
+    });
+</script>
 </script>
 
 <!--include the loaders-->

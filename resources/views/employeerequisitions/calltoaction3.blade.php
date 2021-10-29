@@ -87,9 +87,9 @@
         <!-- /.list of requisitions-fluid -->
 
         <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Request Employee
-</button>
+</button> -->
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -264,7 +264,7 @@
                                                                 <i class="fa fa-eye text-warning"></i> Approve
                                                                 Requisition</a>
                                                             <div>
-                                                                <a class="dropdown-item" id="{{$emprequest->id}}" href="{{ url('declinefroceoempinitator/' . $emprequest->id)}}">
+                                                                <a class="dropdown-item" id="{{$emprequest->id}}" href="{{ url('declinereasonfroceoempinitator/' . $emprequest->id)}}">
                                                                     <i class="fa fa-pen text-warning"></i> Decline Requisition
                                                                 </a>
                                                             </div>

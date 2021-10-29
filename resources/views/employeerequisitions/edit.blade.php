@@ -105,9 +105,41 @@
       <fieldset class="col-md-12" >
         <div class="row">
             <div class="col">
+                <div class="form-group">
+                  <label for="disabledTextInput">Position Type</label>
+                <select id="positiontype"  class="form-control"  name="jobcategory" required="">
+            <option value="{{$employeeRequisition->jobcategory}}">{{$employeeRequisition->jobcategory}}</option>
+          <option    value="Replacement"> Replacement </option> 
+            <option   value="New">  New </option>  
+                    
+        </select>
+                  </div>
+            </div>
+            <div class="col">
             <div class="form-group">
          <label for="disabledTextInput">Job Tittle</label>
-           <input type="text" class="form-control"  id="exampleFormControlTextarea1" value="{{$employeeRequisition->jobtittle}}" name="jobtittle" required="">
+             <div>
+      <input type="text" class="form-control"  name="jobtittle_input" id="ifYes" style="display:none">
+    </div> 
+         <input list="brow" id="JobTittle" class="form-control" name="jobtittle">
+<datalist id="brow">
+  <select id="JobTittle" required class="form-control" name="jobtittle">
+     <option  value="{{$employeeRequisition->jobtittle}}" selected >  </option>  
+     <?php
+       $job_postings=DB::table('job_postings')
+               ->get();
+        ?>
+           
+
+        
+         @foreach ($job_postings as $jobtype)
+
+
+    <option value="{{ $jobtype->name }}"> {{ $jobtype->name }} </option>            
+            @endforeach         
+        </select>
+        </datalist>  
+
            </div> 
             </div>
             <div class="col">
@@ -116,12 +148,7 @@
              <input type="number" class="form-control"  id="exampleFormControlTextarea1" value="{{ $employeeRequisition->salary}}" name="salary" required="">
              </div>
             </div>
-            <div class="col">
-                    <div class="form-group">
-                  <label for="disabledTextInput">Budgeted Salary To</label>
-                    <input type="number"  class="form-control" id="exampleFormControlTextarea1" name="salaryto" value="{{$employeeRequisition->salaryto}}" required="">
-                  </div>
-            </div>
+
         </div>
         <div class="row">
             <div class="col">
@@ -142,12 +169,9 @@
             <div class="col">
                 <div class="form-group">
                   <label for="disabledTextInput">People Targeted</label>
-                           <select class="form-control" name="intenting" required="">
-                            <option value="{{$employeeRequisition->intenting}}">{{$employeeRequisition->intenting}}</option>
-                              <option value="Internal"> Internal </option>  
-                                <option value="External"> External </option>  
-                                  <option value="Both"> Both </option>          
-                           </select>
+                   <br>
+      <input type="checkbox" name="intenting[]" value="Internal" checked="true">Internal
+      <input type="checkbox" name="intenting[]"  value="External">External
                   </div>
             </div>
          <div class="col">
@@ -178,18 +202,18 @@
                   </select>
                   </div>
             </div>
-                      <div class="col">
-                <div class="form-group">
-                  <label for="disabledTextInput">No Of Interviews</label>
-                    <input type="number"  class="form-control" id="exampleFormControlTextarea1" name="interviews" value="{{$employeeRequisition->interviews}}" required="">
-                  </div>
-            </div>
             <div class="col">
                 <div class="form-group">
-                  <label for="disabledTextInput">No. Of Positions</label>
-                    <input type="number"  class="form-control" id="exampleFormControlTextarea1" name="positions" value="{{$employeeRequisition->positions}}" required="">
+                  <label for="disabledTextInput">Levels Of Interviews</label><br>
+     <input type="checkbox" name="interviews[]"  value="Pre-Test" checked="true">Pre-Test &nbsp;
+     <input type="checkbox" name="interviews[]" value="Online Test" checked="true">Online Test &nbsp;
+     <input type="checkbox" name="interviews[]" value="Online Interview" checked="true">Online Interview&nbsp;
+       <input type="checkbox" name="interviews[]"  value="Physical Assessment">Physical Assessment &nbsp;
+    <input type="checkbox" name="interviews[]"  value="First Oral" checked="true">First Oral&nbsp;&nbsp;<br>
+     <input type="checkbox" name="interviews[]" value="Second Oral" checked="true" >Second Oral
                   </div>
             </div>
+
         </div>
         <div class="row">
              <div class="col">
@@ -198,14 +222,10 @@
                     <input type="date"  class="form-control" id="exampleFormControlTextarea1" name="startdate" value="{{$employeeRequisition->startdate}}" required="">
                   </div>
               </div>
-                <div class="col">
+            <div class="col">
                 <div class="form-group">
-                  <label for="disabledTextInput">Position Type</label>
-                          <select class="form-control" name="jobcategory" required="">
-                            <option value="{{$employeeRequisition->jobcategory}}">{{$employeeRequisition->jobcategory}}</option>
-                            <option value="New"> New </option>  
-                            <option value="Replacement"> Replacement </option>           
-                              </select>
+                  <label for="disabledTextInput">No. Of Positions</label>
+                    <input type="number"  class="form-control" id="exampleFormControlTextarea1" name="positions" value="{{$employeeRequisition->positions}}" required="">
                   </div>
             </div>
                 <div class="col">
@@ -217,36 +237,85 @@
                         ->get();
                               ?>
                      @foreach ($managers as $manager)
-                        <option value="{{ $manager->id }}" @if(Auth::user()->id)selected @endif> {{ $manager->name }} </option>            
+                        <option value="{{ $manager->id }}" @if(Auth::user()->id == $manager->id )selected @endif> {{ $manager->name }} </option>            
                            @endforeach 
                             </select> 
                   </div>
             </div>
 </div>
     <div class="col">
-                <div class="form-group">
-                  <label for="disabledTextInput">Position Requirements</label>
-                     <textarea class="form-control textarea"  id="exampleFormControlTextarea1" name="posrequirements" rows="3">{!! $employeeRequisition->posrequirements!!}</textarea>
-                  </div>
+
             </div>
-        <div class="form-group">
-      <label for="disabledTextInput">Responsibilities</label>
-      <textarea class="form-control textarea"  id="exampleFormControlTextarea1" name="responsibilities" rows="3">{!! $employeeRequisition->responsibilities!!}</textarea>
-    </div>
     <div class="form-group">
       <label for="disabledTextInput">Job Description</label>
       <textarea class="form-control textarea"  id="exampleFormControlTextarea1"  name="jobdescription" rows="3">{!!$employeeRequisition->jobdescription!!}</textarea>
     </div>
+        <div class="form-group">
+      <label for="disabledTextInput">Responsibilities</label>
+      <textarea class="form-control textarea"  id="exampleFormControlTextarea1" name="responsibilities" rows="3">{!! $employeeRequisition->responsibilities!!}</textarea>
+    </div>
+       <div class="form-group">
+    <label for="disabledTextInput">Requirements</label>
+      <textarea class="form-control textarea summernote" id="exampleFormControlTextarea1" required name="salarybudget" rows="3">{!! $employeeRequisition->salarybudget!!}</textarea>
+    </div>
+     <div class="form-group">
+     <label for="disabledTextInput">Skills</label>
+                     <textarea class="form-control textarea"  id="exampleFormControlTextarea1" name="posrequirements" rows="3">{!! $employeeRequisition->posrequirements!!}</textarea>
+                  </div>
+ 
+
 
       </fieldset>
       <br>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="submit" class="btn btn-primary">Submit Request</button>
         </form>
 </section>
 </div>
 <script type="text/javascript">
 </script>
   
-         
+   <script type="text/javascript">
+    function buttonToggler(id){
+        $('#'+id).slideUp()
+    }
+</script>
+<script type="text/javascript">
+
+    jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+    // $(document).ready(
+    //     //  target the minimum input
+    //     $('#salaryfrom').keyup(e=>{
+    //         $('#salaryto').attr('min', $('#salaryfrom').val())
+    //     })
+    // )
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#positiontype").change(function(){
+        yesnoCheck();
+    })
+})
+
+function yesnoCheck() {
+        if ($('#positiontype').val() == 'New') {
+            document.getElementById('ifYes').style.display = 'block';
+            document.getElementById('ifYes').setAttribute('required', 'required');
+            document.getElementById('JobTittle').removeAttribute('required');
+            document.getElementById('JobTittle').style.display = 'none';
+
+        }
+        else {
+            document.getElementById('ifYes').removeAttribute('required');
+            document.getElementById('ifYes').style.display = 'none';
+            document.getElementById('JobTittle').style.display = 'block';
+            document.getElementById('JobTittle').setAttribute('required', 'required');
+
+        }
+    }
+</script>      
 
 @endsection

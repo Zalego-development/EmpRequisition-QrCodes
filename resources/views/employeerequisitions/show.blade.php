@@ -84,9 +84,9 @@
         </div><!-- /.container-fluid -->
     </div>
     <section class="content">
-<!--          <div class="pull-left">
-            <a class="btn btn-primary" href="{{ route('employeerequisitions.index') }}"> Back</a>
-        </div> -->
+         <div class="pull-left">
+            <a class="btn btn-primary" href="{{ route('tabspage') }}"> Back</a>
+        </div>
         <br>
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -113,16 +113,16 @@
 
             <div class="col">
                     <div class="form-group">
-                  <label for="disabledTextInput">Budgeted Salary from?</label>
+                  <label for="disabledTextInput">Budgeted Salary </label>
                     <input type="number" readonly="" class="form-control" id="exampleFormControlTextarea1" name="salary" value="{{$employeeRequisition->salary}}" required="">
                   </div>
             </div>
-                <div class="col">
+  <!--               <div class="col">
                 <div class="form-group">
                   <label for="disabledTextInput">Salary Range to?</label>
                     <input type="number" readonly="" class="form-control" id="exampleFormControlTextarea1" name="salaryto" value="{{$employeeRequisition->salaryto}}" required="">
                   </div>
-            </div>
+            </div> -->
                      
         </div>
         <div class="row">
@@ -134,15 +134,15 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                  <label for="disabledTextInput">People Targeted</label>
+                  <label for="disabledTextInput">People Targeted</label><br>
                                                  @php
                                                     $intenting = unserialize($employeeRequisition->intenting)
                                                     @endphp
-                                                    <ul>
+                                                
                                                     @foreach($intenting as $intent)
-                                                        <li>{{ $intent }}</li>
+                                                        <input type="checkbox" name="intenting[]"   checked="true">{{ $intent }} &nbsp;
                                                     @endforeach
-                                                    </ul>
+                                                   
                   </div>
             </div>
          <div class="col">
@@ -162,8 +162,15 @@
             </div>
                       <div class="col">
                 <div class="form-group">
-                  <label for="disabledTextInput">No Of Interviews</label>
-                    <input type="text" readonly="" class="form-control" id="exampleFormControlTextarea1" name="salary" value="{{$employeeRequisition->interviews}}" required="">
+                  <label for="disabledTextInput">Levels Of Interviews</label>
+                  @php
+                 $interviews = unserialize($employeeRequisition->interviews)
+                                                    @endphp
+                                                 
+                                                    @foreach($interviews as $intent)
+                                                        <input type="checkbox" name="interviews[]"  checked="true">{{ $intent }} &nbsp;
+                                                    @endforeach
+                                                    </ul>
                   </div>
             </div>
           <div class="col">
@@ -200,18 +207,25 @@
                   </div>
             </div>
       </div>
-                      <div class="form-group">
-                  <label for="disabledTextInput">Position Skills</label>
-                     <textarea class="form-control textarea" readonly="" id="exampleFormControlTextarea1" name="resposnsibilities" rows="3">{!! $employeeRequisition->posrequirements!!}</textarea>
-                  </div>
-        <div class="form-group">
-      <label for="disabledTextInput">Responsibilities</label>
-      <textarea class="form-control textarea" readonly="" id="exampleFormControlTextarea1" name="resposnsibilities" rows="3">{!! $employeeRequisition->responsibilities!!}</textarea>
-    </div>
-    <div class="form-group">
+          <div class="form-group">
       <label for="disabledTextInput">Job Description</label>
       <textarea class="form-control textarea" readonly="" id="exampleFormControlTextarea1"  name="jobdescription" rows="3">{!!$employeeRequisition->jobdescription!!}</textarea>
     </div>
+          <div class="form-group">
+      <label for="disabledTextInput">Responsibilities</label>
+      <textarea class="form-control textarea" readonly="" id="exampleFormControlTextarea1" name="resposnsibilities" rows="3">{!! $employeeRequisition->responsibilities!!}</textarea>
+    </div>
+              <div class="form-group">
+    <label for="disabledTextInput">Requirements</label>
+      <textarea class="form-control textarea summernote" id="exampleFormControlTextarea1" required name="salarybudget" rows="3">{!! $employeeRequisition->salarybudget!!}</textarea>
+    </div>
+                      <div class="form-group">
+                  <label for="disabledTextInput">Skills</label>
+                     <textarea class="form-control textarea" readonly="" id="exampleFormControlTextarea1" name="resposnsibilities" rows="3">{!! $employeeRequisition->posrequirements!!}</textarea>
+                  </div>
+  
+
+ 
 
       </fieldset>
         </form>

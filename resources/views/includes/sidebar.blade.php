@@ -98,15 +98,15 @@
               </p>
             </a>
           </li>
-<!--             <li class="nav-item has-treeview">
-            <a href="{{url('/jobs')}}" class="nav-link nav-link2">
+            <li class="nav-item has-treeview">
+            <a href="{{url('/employeesqrcodes')}}" class="nav-link nav-link2">
               <i class="nav-icon fas fa-eye"></i>
               <p>
-               View Comments
+               Employee QR Codes
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-          </li> -->
+          </li>
             <!-- <li class="nav-item has-treeview">
             <a href="" class="nav-link nav-link2">
               <i class="nav-icon fas fa-cog"></i>

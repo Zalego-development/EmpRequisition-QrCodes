@@ -7642,7 +7642,7 @@ public function employeerequisitionsettingsupdate(Request $request){
     }
 
 
- public function fetch(Request $request)
+ public function fetchusers(Request $request)
     {
      $select = $request->get('select');
      $value = $request->get('value');

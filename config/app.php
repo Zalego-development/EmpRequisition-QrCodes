@@ -163,6 +163,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         // Yajra\Datatables\DatatablesServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Madnest\Madzipper\MadzipperServiceProvider::class,
 
         // OzdemirBurak\JsonCsv\File\Csv::class,
 
@@ -233,6 +235,8 @@ return [
         'Location' => 'Stevebauman\Location\Facades\Location',
         // 'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+         'Madzipper' => Madnest\Madzipper\Madzipper::class,
 
         // 'csv'=> OzdemirBurak\JsonCsv\File\Csv::class,
 

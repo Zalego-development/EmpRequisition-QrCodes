@@ -322,7 +322,12 @@ else{
   </div>
 </div>
 
+    <?php 
 
+if (!extension_loaded('imagick')){
+    echo 'imagick not installed';
+}
+?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
@@ -1654,7 +1659,7 @@ $(document).ready(function(){
    var dependent = $(this).data('dependent');
    var _token = $('input[name="_token"]').val();
    $.ajax({
-    url:"{{ route('dynamicdependent.fetch') }}",
+    url:"{{ route('dynamic_dependent.fetchusers') }}",
     method:"POST",
     data:{select:select, value:value, _token:_token, dependent:dependent},
     success:function(result)

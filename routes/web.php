@@ -7,6 +7,7 @@ use App\Http\Controllers\MembersController;
 use App\Http\Controllers\ApplicantsController;
 use App\Http\Controllers\EmployeeRequisitionController;
 use App\Http\Controllers\JobsControlller;
+use App\Http\Controllers\QrCodeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -128,7 +129,7 @@ Route::get('/returnforcorrections/{id}', [EmployeeRequisitionController::class, 
 
 	Route::get('/returnforcorrectionstoleadexec/{id}/{user}', [EmployeeRequisitionController::class, 'returnforcorrectionstoleadexec'])->middleware('auth');
 	Route::get('approvesmessage', [EmployeeRequisitionController::class, 'approvesmessage'])->name('employeerequisitions.approvesmessage');
-    Route::POST('/dynamic_dependent/fetch', [EmployeeRequisitionController::class, 'fetch'])->name('dynamicdependent.fetch');
+    Route::post('dynamic_dependent/fetchusers', [EmployeeRequisitionController::class, 'fetchusers'])->name('dynamic_dependent.fetchusers');
 	Route::get('viewcomments/{id}', [EmployeeRequisitionController::class, 'viewcomments']);
 	Route::POST('/commentsapprovalstore', [EmployeeRequisitionController::class, 'commentsapprovalstore']);
 	Route::resource('jobs', JobsControlller::class);
@@ -179,8 +180,15 @@ Route::get('/returnforcorrections/{id}', [EmployeeRequisitionController::class, 
       Route::get('/ceoapprovingtoexerectohiring/{id}', [EmployeeRequisitionController::class, 'ceoapprovingtoexerectohiring']);  
       Route::get('/ceoapprovingtoexerectohiring/{id}/{rec}', [EmployeeRequisitionController::class, 'ceoapprovingtoexerectohiring1']);  
       	 
-	//You ned 
+	//developing qr code system
+      Route::get('/generate-qrcode', [QrCodeController::class, 'index'])->name('generate-qrcode');
 
+       Route::get('/generate{id}', [QrCodeController::class, 'generate'])->name('generate');
+        Route::post('/export', [QrCodeController::class, 'export'])->name('export');
+         Route::post('/exportdepartments', [QrCodeController::class, 'exportdepartments'])->name('exportdepartments');
+        Route::get('/exportdownload{id}', [QrCodeController::class, 'exportdownload'])->name('exportdownload');
+        Route::get('/employeesqrcodes', [QrCodeController::class, 'employees'])->name('employeesqrcodes');
+         Route::POST('/dynamic_dependent/fetch', [QrCodeController::class, 'fetch'])->name('dynamicdependent.fetch2');
 	// Route::get('/filterLeads','LeadsController@filterLeads');
 	// Route::get('agentReports',[LeadsController::class,'agentReports']);
 	// Route::get('filterbydate',[LeadsController::class,'filterbydate']);

@@ -61,6 +61,7 @@
         border: 1px solid orange !important;
         color: orange !important;
     }
+
 </style>
 <script>
       $(function () {
@@ -119,7 +120,6 @@
 </div>
    
         </div>
-        <!--  <a title="Add Workspace" class=" shadow-lg mr-2 btn btn-default bg-primary " href="#" data-toggle="modal" data-target="#exampleModal" style="width: 50px; cursor: pointer; height: 50px; border-radius: 50%; position: absolute; left:90%; top:11%; z-index: 1;"><i class="fas fa-file-export" style="margin-top: 14px;"></i></a> -->
 
          <!-- modal for selecting exports Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -138,7 +138,7 @@
         <div class="form-group">
       <label for="disabledTextInput">Company</label>
 
-        <select class="form-control" name="company" class="js-example-basic-single" required="" class="form-control input-lg dynamic" data-dependent="userId">
+        <select class="form-control" name="company" class="js-example-basic-single" required="">
             <option value="">please Select Company</option>
             @php 
             $company=DB::table('companies')
@@ -154,7 +154,6 @@
       </fieldset>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Export</button>
         </form>
       </div>
@@ -182,23 +181,28 @@
         <div class="form-group">
       <label for="disabledTextInput">Departments</label>
 
-        <select class="form-control" name="department" class="js-example-basic-single" required="" class="form-control input-lg dynamic" data-dependent="userId">
-            <option value="">please Select departments</option>
+        <select class="form-control" name="department" id="company" class="js-example-basic-single" required="" class="form-control input-lg dynamic" data-dependent="userId">
+            <option value="">please Select Company</option>
             @php 
-            $departments=DB::table('departments')
+            $company=DB::table('companies')
                     ->get();
                     @endphp
-           @foreach ($departments as $camp)
-        <option value="{{ $camp->id }}"> {{ $camp->department }} </option>          
-            @endforeach   
-             <option value="All">All Departments</option>   
-      </select>   
+           @foreach ($company as $camp)
+        <option value="{{ $camp->id }}"> {{ $camp->company }} </option>          
+            @endforeach     
+      </select> 
+         <div class="form-group">
+      <label for="disabledTextInput">Employees</label>
+        <select name="userId" id="userId" class="form-control input-lg dynamic my-select" data-live-search="true">
+             <option value="">Select Department</option>  
+      </select> 
+       {{ csrf_field() }}  
+    </div>  
     </div>
 
       </fieldset>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Export</button>
         </form>
       </div>
@@ -293,12 +297,15 @@
                                                                 style="margin-top: -9px !important;"></i></a>
                                                         <div style="margin-left:-120px !important;"
                                                             class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('generate',$user->id) }}"
+                                                            <a class="dropdown-item" href="{{ route('generate',$user->userId) }}"
                                                                 style="cursor:pointer;" title="generate qr codes">
-                                                                <i class="fas fa-file-export text-warning"></i> Generate Qr Code
+                                                                <i class="fas fa-file-export text-warning"></i> Generate Qr Code Staff
                                                                 </a>
-                                                                <a class="dropdown-item" id="" href="{{ route('exportdownload',$user->id) }}"  style="cursor:pointer;" title="Export Qr Code">
+                                                                 <a class="dropdown-item" href="{{ route('visitor') }}"
+                                                                style="cursor:pointer;" title="generate qr codes">
+                                                                <i class="fas fa-file-export text-warning"></i> Generate Qr Code Visitor
+                                                                </a>
+                                                                <a class="dropdown-item" id="" href="{{ route('exportdownload',$user->userId) }}"  style="cursor:pointer;" title="Export Qr Code">
                                                                     <i class="fas fa-file-export text-warning"></i> Export
                                                                 </a>
                                                         </div><br>
@@ -356,8 +363,6 @@ $(document).ready(function(){
    })
   }
  });
- 
-// $('.my-select').selectpicker();
 });
 </script>
          

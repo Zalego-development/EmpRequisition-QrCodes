@@ -71,7 +71,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-muted ml-2 mt-2"><strong>Employee Requisition</strong></h1>
+                    <h1 class="m-0 text-muted ml-2 mt-2"><strong>Staff Id QR Codes</strong></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <div class="float-right mt-2">
@@ -106,37 +106,39 @@
   <fieldset>
     <legend class="form-control">Personal Details:</legend><br>
     <label for="fname">First name:</label>
-    <input type="text" class="form-control" id="fname" value="{{$user->firstname}}" required name="fname"><br>
+    <input type="text" class="form-control" id="fname" value="{{$user->firstname}}" readonly required name="fname"><br>
     <label for="lname">Last name:</label>
-    <input type="text" class="form-control" id="lname" value="{{$user->lastname}}" required name="lname"><br>
+    <input type="text" class="form-control" id="lname" value="{{$user->lastname}}" readonly required name="lname"><br>
     <label for="email">Email:</label>
-    <input type="email" class="form-control" id="email"value="{{$user->corporateEmail}}" name="email"><br>
+    <input type="email" class="form-control" id="email"value="{{$user->corporateEmail}}" readonly name="email"><br>
      <label for="title">Title:</label>
      @php 
     $title=DB::table('titles')
           ->where('id', $user->designationId)
           ->first();
      @endphp
-    <input type="text" class="form-control" id="Title" value="{{$title->title}}" name="Title"><br>
+    <input type="text" class="form-control" id="Title" value="{{$title->title}}" readonly name="Title"><br>
     <label for="number">Phone:</label>
-    <input type="number" class="form-control" id="phone" value="{{$user->contact}}" name="phone"><br>
+    <input type="number" class="form-control" id="phone" value="{{$user->contact}}" readonly name="phone"><br>
     <label for="email">Url:</label>
-    <input type="url" class="form-control" id="email" value="{{$geturl->url}}" name="url"><br>
+    <input type="url" class="form-control" id="email" value="{{$geturl->url}}" readonly name="url"><br>
      <label for="birthday">Department</label>
           @php 
     $departmentId=DB::table('departments')
           ->where('id', $user->departmentId)
           ->first();
      @endphp
-    <input type="text" class="form-control" id="Department" value="{{$departmentId->department}}" name="Department"><br>
+    <input type="text" class="form-control" id="Department" readonly value="{{$departmentId->department}}" name="Department"><br>
   </fieldset>
 </form>
         </div>
         <div class="col-md-6">  
         <p></p><br><br> 
         <h4 style="text-align: center;">Employee QR Code</h4>  
-           <p style="text-align: center;"> {!! $user->qrcode !!}</p><br>
+           <p style="text-align: center;">
+ {!! $qr !!}</p><br>
            <a href="{{ route('exportdownload',$user->id) }}"><button class="btn-primary" >Export</button></a> 
+           
         </div>
     </div>
 </div>

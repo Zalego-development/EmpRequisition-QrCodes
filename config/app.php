@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Nairobi',
 
     /*
     |--------------------------------------------------------------------------
@@ -165,6 +165,8 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Madnest\Madzipper\MadzipperServiceProvider::class,
+         LaravelQRCode\Providers\QRCodeServiceProvider::class,     
+
 
         // OzdemirBurak\JsonCsv\File\Csv::class,
 
@@ -237,6 +239,8 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
          'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
          'Madzipper' => Madnest\Madzipper\Madzipper::class,
+         'QRCode' => LaravelQRCode\Facades\QRCode::class,     
+
 
         // 'csv'=> OzdemirBurak\JsonCsv\File\Csv::class,
 
